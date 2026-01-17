@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>女性乳腺议题的情绪表达与社群支持网络研究</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .serif {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c084fc;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a855f7;
+        }
+        
+        /* 渐变背景动画 */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .gradient-animate {
+            background-size: 200% 200%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        /* 卡片悬停效果 */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 数据可视化动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* 时间轴样式 */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #c084fc, #ec4899);
+            transform: translateX(-50%);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-item::before {
+                left: 20px;
+            }
+        }
+        
+        /* 响应式iframe容器 */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 85%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .chart-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* 词云图、焦虑与回应、互动主体专用容器 - 正常尺寸，背景色匹配 */
+        .wordcloud-container,
+        .chart-container-special {
+            position: relative;
+            width: 100%;
+            padding-bottom: 85%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .wordcloud-container iframe,
+        .chart-container-special iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* 保持所有设备上的精确宽高比 */
+        @media (max-width: 640px) {
+            .chart-container {
+                padding-bottom: 85%;
+            }
+            .wordcloud-container {
+                padding-bottom: 85%;
+            }
+        }
+        
+        /* 图表卡片间距优化 */
+        @media (max-width: 1024px) {
+            .chart-grid {
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .chart-grid {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 gradient-animate bg-gradient-to-br from-purple-100 via-pink-50 to-rose-100"></div>
+        
+        <div class="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center">
+            <div class="fade-in-up">
+                <h1 class="serif text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+                    女性乳腺议题的<br>
+                    <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                        情绪表达与社群支持网络研究
+                    </span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-700 mb-8 font-light">
+                    基于微博、小红书、豆瓣三大平台的量化分析
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 text-sm md:text-base">
+                    <span class="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-md">
+                        <i class="fas fa-database text-purple-600 mr-2"></i>1000+ 有效数据
+                    </span>
+                    <span class="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-md">
+                        <i class="fas fa-users text-pink-600 mr-2"></i>三大平台分析
+                    </span>
+                    <span class="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-md">
+                        <i class="fas fa-heart text-rose-600 mr-2"></i>社群支持网络
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 滚动指示 -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-gray-600 text-2xl"></i>
+        </div>
+    </section>
+    
+    <!-- 引言部分 -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="prose prose-lg max-w-none">
+                <p class="text-gray-700 leading-relaxed text-lg mb-4">
+                    "生气就长乳腺增生""乳腺结节一定会癌变""乳腺癌是女性专属疾病"……这些流传甚广的说法，折射出大众对乳腺健康的复杂心态——既高度关注，又充满认知偏差。
+                </p>
+                <p class="text-gray-700 leading-relaxed text-lg mb-4">
+                    作为女性最常见的健康议题之一，乳腺相关问题早已超越单纯的医学范畴，演变为牵动情绪、影响生活的社会话题。
+                </p>
+                <p class="text-gray-700 leading-relaxed text-lg">
+                    本研究以女性乳腺健康为核心议题，设定的核心研究问题如下：梳理女性乳腺健康相关的情绪表达特征，分析线上社群支持网络的差异化模式，探究如何借助线上互助与科普破除相关认知误区和社交禁忌，并通过联动线下医疗资源有效缓解女性乳腺健康焦虑。
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 关键数据卡片 -->
+    <section class="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="serif text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
+                <i class="fas fa-chart-line text-purple-600 mr-4"></i>关键数据洞察
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 卡片1 -->
+                <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div class="text-5xl font-bold text-purple-600 mb-2">37.4%</div>
+                    <div class="text-gray-600 mb-4">乳腺增生患病率</div>
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-arrow-up text-red-500 mr-1"></i>
+                        20-29岁女性高达61.3%
+                    </div>
+                </div>
+                
+                <!-- 卡片2 -->
+                <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div class="text-5xl font-bold text-pink-600 mb-2">42.26%</div>
+                    <div class="text-gray-600 mb-4">乳腺结节检出率</div>
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-chart-line text-blue-500 mr-1"></i>
+                        六年翻了两倍多
+                    </div>
+                </div>
+                
+                <!-- 卡片3 -->
+                <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div class="text-5xl font-bold text-rose-600 mb-2">95%</div>
+                    <div class="text-gray-600 mb-4">早期5年生存率</div>
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-heart text-green-500 mr-1"></i>
+                        早筛早治至关重要
+                    </div>
+                </div>
+                
+                <!-- 卡片4 -->
+                <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div class="text-5xl font-bold text-indigo-600 mb-2">16.2%</div>
+                    <div class="text-gray-600 mb-4">愿意交流话题</div>
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-comments text-orange-500 mr-1"></i>
+                        社交禁忌依然存在
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 新闻语句 -->
+            <div class="mt-12 max-w-4xl mx-auto">
+                <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-6">
+                    <p class="text-gray-800 leading-relaxed text-base italic">
+                        <i class="fas fa-quote-left text-blue-600 mr-2"></i>
+                        数据显示，乳腺结节检出率在六年间翻了两倍多，2025年已达42.26%，每两位女性中就有一位检出结节，40-49岁女性检出率更是突破53%，与乳腺癌诊断中位年龄高度重合。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 总览数据可视化图表 -->
+    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="serif text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+                    <i class="fas fa-chart-area text-purple-600 mr-4"></i>数据总览可视化
+                </h2>
+                <p class="text-xl text-gray-600">基于三大平台数据的综合可视化呈现</p>
+            </div>
+            
+            <div class="bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 rounded-3xl p-4 md:p-8 lg:p-12 shadow-2xl border border-purple-100">
+                <div class="bg-yellow-50 rounded-2xl p-0 shadow-lg overflow-hidden">
+                    <div class="wordcloud-container">
+                        <iframe 
+                            src="https://dycharts.com/xshow/index.html?id=c_67f7f3ca3b6b74a4f0c09e617b31788a" 
+                            scrolling="no" 
+                            frameborder="0"
+                            allowfullscreen
+                            loading="lazy"
+                            title="乳腺健康数据总览可视化图表">
+                        </iframe>
+                    </div>
+                </div>
+                <p class="text-center text-gray-600 text-sm mt-6">
+                    <i class="fas fa-info-circle text-purple-600 mr-2"></i>
+                    交互式数据可视化图表，支持缩放和详细数据查看
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 第一部分：数据画像 -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="serif text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+                    一、数据画像
+                </h2>
+                <p class="text-xl text-gray-600">乳腺健康焦虑的高发群体与核心痛点</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">
+                            <i class="fas fa-user-friends text-purple-600 mr-3"></i>高发群体特征
+                        </h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mr-3 mt-1"></i>
+                                <span><strong>20-29岁年轻女性</strong>患病率高达61.3%，远超其他年龄段</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mr-3 mt-1"></i>
+                                <span><strong>脑力劳动者</strong>、离异女性等群体风险更高</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mr-3 mt-1"></i>
+                                <span>月经不规律、<strong>流产次数多</strong>是主要危险因素</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-900">
+                        <i class="fas fa-chart-pie text-pink-600 mr-3"></i>情绪表达分析
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700">诊断结果不确定性</span>
+                                <span class="font-bold text-purple-600">43.8%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-purple-600 h-3 rounded-full" style="width: 43.8%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700">治疗痛苦与副作用</span>
+                                <span class="font-bold text-pink-600">31.5%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-pink-600 h-3 rounded-full" style="width: 31.5%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700">预后对生活的影响</span>
+                                <span class="font-bold text-rose-600">24.7%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-rose-600 h-3 rounded-full" style="width: 24.7%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">
+                        <i class="fas fa-info-circle mr-2"></i>基于微博89条焦虑表达数据分析
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 新闻语句 -->
+            <div class="mb-8 max-w-4xl mx-auto">
+                <div class="bg-purple-50 border-l-4 border-purple-500 rounded-lg p-6">
+                    <p class="text-gray-800 leading-relaxed text-base">
+                        在情绪表达层面，"疾病未知性"是女性群体的核心焦虑源。微博89条焦虑表达数据中，43.8%的内容聚焦诊断结果不确定性，31.5%担忧治疗痛苦与副作用，24.7%焦虑预后对生活的影响。值得注意的是，25-35岁女性是线上焦虑表达的主力军，微博该年龄段焦虑内容占比达62.9%，这与年轻女性对身体形象、家庭责任的高敏感度密切相关。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 认知误区卡片 -->
+            <div class="bg-red-50 border-l-4 border-red-500 rounded-lg p-6 mb-12">
+                <h3 class="text-xl font-bold mb-4 text-red-900">
+                    <i class="fas fa-exclamation-triangle text-red-600 mr-3"></i>认知误区加剧焦虑
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+                    <div>
+                        <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                        超七成公众不知"月经初潮早/绝经晚"是乳腺癌高危因素
+                    </div>
+                    <div>
+                        <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                        三分之一的人不知道男性也可能患乳腺癌
+                    </div>
+                    <div>
+                        <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                        仅16.2%的受访者愿与任何人交流相关话题
+                    </div>
+                    <div>
+                        <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                        近四分之三患者确诊时已为中晚期
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 数据画像可视化图表 -->
+            <div class="mb-12">
+                <h3 class="serif text-3xl font-bold text-center mb-8 text-gray-900">
+                    <i class="fas fa-chart-bar text-purple-600 mr-3"></i>数据画像可视化分析
+                </h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- 焦虑与回应 -->
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 shadow-xl border border-purple-100">
+                        <h4 class="text-xl font-bold mb-4 text-gray-900 text-center">
+                            <i class="fas fa-comments text-purple-600 mr-2"></i>焦虑与回应
+                        </h4>
+                        <div class="bg-yellow-50 rounded-xl p-0 shadow-md overflow-hidden">
+                            <div class="chart-container-special">
+                                <iframe 
+                                    src="https://dycharts.com/xshow/index.html?id=c_f7cbf0fa090818cfc445f62c46784b01" 
+                                    scrolling="no" 
+                                    frameborder="0"
+                                    allowfullscreen
+                                    loading="lazy"
+                                    title="焦虑与回应数据可视化">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 有关乳腺的焦虑 -->
+                    <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-6 shadow-xl border border-pink-100">
+                        <h4 class="text-xl font-bold mb-4 text-gray-900 text-center">
+                            <i class="fas fa-heartbeat text-pink-600 mr-2"></i>有关乳腺的焦虑
+                        </h4>
+                        <div class="bg-white rounded-xl p-4 shadow-md">
+                            <div class="chart-container">
+                                <iframe 
+                                    src="https://dycharts.com/xshow/index.html?id=c_d31039d1fcec17952a334f0fe5c494d3" 
+                                    scrolling="no" 
+                                    frameborder="0"
+                                    allowfullscreen
+                                    loading="lazy"
+                                    title="有关乳腺的焦虑数据可视化">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 年轻群体水波图 - 单独一行，更大显示 -->
+                <div class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-2xl p-6 shadow-xl border border-indigo-100">
+                    <h4 class="text-xl font-bold mb-4 text-gray-900 text-center">
+                        <i class="fas fa-users text-indigo-600 mr-2"></i>年轻群体水波图
+                    </h4>
+                    <div class="bg-white rounded-xl p-4 shadow-md max-w-4xl mx-auto">
+                        <div class="chart-container">
+                            <iframe 
+                                src="https://dycharts.com/xshow/index.html?id=c_7b1368d08c2a88a9bdeb7ff219fcc24b" 
+                                scrolling="no" 
+                                frameborder="0"
+                                allowfullscreen
+                                loading="lazy"
+                                title="年轻群体水波图数据可视化">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 第二部分：社群互助 -->
+    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="serif text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+                    二、社群互助
+                </h2>
+                <p class="text-xl text-gray-600">三大平台的差异化支持模式</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <!-- 微博 -->
+                <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border-2 border-red-200">
+                    <div class="text-center mb-6">
+                        <div class="inline-block bg-red-100 rounded-full p-4 mb-4">
+                            <i class="fab fa-weibo text-red-600 text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">微博</h3>
+                        <p class="text-gray-600">短文本互动为主</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-red-50 rounded-lg p-4">
+                            <div class="text-sm text-gray-600 mb-2">信息求助型</div>
+                            <div class="text-3xl font-bold text-red-600">34.1%</div>
+                        </div>
+                        <div class="bg-red-50 rounded-lg p-4">
+                            <div class="text-sm text-gray-600 mb-2">经验分享型</div>
+                            <div class="text-3xl font-bold text-red-600">23.2%</div>
+                        </div>
+                        <div class="pt-4 border-t border-gray-200">
+                            <p class="text-sm text-gray-600">
+                                <i class="fas fa-users text-red-500 mr-2"></i>
+                                <strong>81.7%</strong>的支持来自陌生人弱关系
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 小红书 -->
+                <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border-2 border-pink-200">
+                    <div class="text-center mb-6">
+                        <div class="inline-block bg-pink-100 rounded-full p-4 mb-4">
+                            <i class="fas fa-book text-pink-600 text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">小红书</h3>
+                        <p class="text-gray-600">图文实操导向</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-pink-50 rounded-lg p-4">
+                            <div class="text-sm text-gray-600 mb-2">实操建议型</div>
+                            <div class="text-3xl font-bold text-pink-600">15.0%</div>
+                        </div>
+                        <div class="bg-pink-50 rounded-lg p-4">
+                            <div class="text-sm text-gray-600 mb-2">图文内容点赞量</div>
+                            <div class="text-2xl font-bold text-pink-600">3.2倍</div>
+                            <div class="text-xs text-gray-500">vs 纯文字内容</div>
+                        </div>
+                        <div class="pt-4 border-t border-gray-200">
+                            <p class="text-sm text-gray-600">
+                                <i class="fas fa-check-circle text-pink-500 mr-2"></i>
+                                <strong>43.2%</strong>来自"已康复"用户
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 豆瓣 -->
+                <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border-2 border-green-200">
+                    <div class="text-center mb-6">
+                        <div class="inline-block bg-green-100 rounded-full p-4 mb-4">
+                            <i class="fas fa-users text-green-600 text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">豆瓣</h3>
+                        <p class="text-gray-600">亲属视角切入</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <div class="text-sm text-gray-600 mb-2">陪伴记录</div>
+                            <div class="text-lg font-bold text-green-600">家属专属互助</div>
+                        </div>
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <div class="text-sm text-gray-600 mb-2">情感共鸣</div>
+                            <div class="text-lg font-bold text-green-600">长期陪伴支持</div>
+                        </div>
+                        <div class="pt-4 border-t border-gray-200">
+                            <p class="text-sm text-gray-600">
+                                <i class="fas fa-heart text-green-500 mr-2"></i>
+                                沉浸式陪伴型互助空间
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 平台数据对比图表 -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-center text-gray-900">
+                    <i class="fas fa-chart-bar text-purple-600 mr-3"></i>平台数据对比
+                </h3>
+                <div class="mermaid">
+                    graph LR
+                        A[微博<br/>328条有效数据] -->|81.7%陌生人支持| B[短文本互动]
+                        C[小红书<br/>412条有效数据] -->|86.2%图文内容| D[实操导向]
+                        E[豆瓣<br/>亲属视角] -->|陪伴记录| F[情感共鸣]
+                        B --> G[问题解决型]
+                        D --> H[康复者主导]
+                        F --> I[沉浸式陪伴]
+                </div>
+            </div>
+            
+            <!-- 社群互助可视化图表 -->
+            <div>
+                <h3 class="serif text-3xl font-bold text-center mb-8 text-gray-900">
+                    <i class="fas fa-chart-line text-pink-600 mr-3"></i>社群互助可视化分析
+                </h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- 互动主体 -->
+                    <div class="bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl p-6 shadow-xl border border-red-100">
+                        <h4 class="text-xl font-bold mb-4 text-gray-900 text-center">
+                            <i class="fas fa-user-friends text-red-600 mr-2"></i>互动主体
+                        </h4>
+                        <div class="bg-yellow-50 rounded-xl p-0 shadow-md overflow-hidden">
+                            <div class="chart-container-special">
+                                <iframe 
+                                    src="https://dycharts.com/xshow/index.html?id=c_f02ba8df95627052a23bf370076174a2" 
+                                    scrolling="no" 
+                                    frameborder="0"
+                                    allowfullscreen
+                                    loading="lazy"
+                                    title="互动主体数据可视化">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 互助类型分布柱状图 -->
+                    <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-6 shadow-xl border border-pink-100">
+                        <h4 class="text-xl font-bold mb-4 text-gray-900 text-center">
+                            <i class="fas fa-chart-bar text-pink-600 mr-2"></i>互助类型分布柱状图
+                        </h4>
+                        <div class="bg-white rounded-xl p-4 shadow-md">
+                            <div class="chart-container">
+                                <iframe 
+                                    src="https://dycharts.com/xshow/index.html?id=c_bbccc8eebe27d5164364e1e670b87446" 
+                                    scrolling="no" 
+                                    frameborder="0"
+                                    allowfullscreen
+                                    loading="lazy"
+                                    title="互助类型分布柱状图数据可视化">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 新闻语句 -->
+            <div class="mt-12 max-w-4xl mx-auto">
+                <div class="bg-pink-50 border-l-4 border-pink-500 rounded-lg p-6">
+                    <p class="text-gray-800 leading-relaxed text-base">
+                        面对普遍的焦虑情绪，社交平台正逐渐形成女性乳腺健康议题的互助支持网络。微博的互助行为更偏向"问题解决型"，在328条有效互助数据中，81.7%的支持来自"同病相怜的姐妹""素不相识的网友"，仅18.3%提及家人、朋友等亲密关系。这种跨地域、跨身份的陌生人支持，构建起"焦虑表达—社群回应—情绪安抚"的闭环。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 第三部分：研究启示 -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="serif text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+                    三、研究启示
+                </h2>
+                <p class="text-xl text-gray-600">从线上互助到健康科普的破局之路</p>
+            </div>
+            
+            <!-- 时间轴 -->
+            <div class="relative mb-16">
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-400 to-pink-400 hidden md:block"></div>
+                
+                <div class="space-y-12">
+                    <!-- 时间轴项目1 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="w-full md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                            <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 shadow-lg border border-purple-100">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-purple-600 rounded-full p-3 mr-4">
+                                        <i class="fas fa-lightbulb text-white"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-900">推动跨平台科普内容差异化创作</h3>
+                                </div>
+                                <ul class="space-y-2 text-gray-700 ml-16">
+                                    <li><i class="fas fa-circle text-purple-600 text-xs mr-2"></i>微博：短平快的误区辟谣与情绪安抚</li>
+                                    <li><i class="fas fa-circle text-pink-600 text-xs mr-2"></i>小红书：图文并茂的实操指南</li>
+                                    <li><i class="fas fa-circle text-rose-600 text-xs mr-2"></i>豆瓣：家属照护经验分享</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-purple-600 rounded-full border-4 border-white shadow-lg hidden md:block"></div>
+                        <div class="w-full md:w-1/2 md:pl-12"></div>
+                    </div>
+                    
+                    <!-- 时间轴项目2 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="w-full md:w-1/2 md:pr-12"></div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-pink-600 rounded-full border-4 border-white shadow-lg hidden md:block"></div>
+                        <div class="w-full md:w-1/2 md:pl-12">
+                            <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-6 shadow-lg border border-pink-100">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-pink-600 rounded-full p-3 mr-4">
+                                        <i class="fas fa-handshake text-white"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-900">强化线上互助与线下医疗联动</h3>
+                                </div>
+                                <ul class="space-y-2 text-gray-700 ml-16">
+                                    <li><i class="fas fa-circle text-pink-600 text-xs mr-2"></i>鼓励医护人员入驻平台</li>
+                                    <li><i class="fas fa-circle text-rose-600 text-xs mr-2"></i>对优质经验帖进行专业背书</li>
+                                    <li><i class="fas fa-circle text-purple-600 text-xs mr-2"></i>引导焦虑用户及时就医筛查</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 时间轴项目3 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="w-full md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                            <div class="bg-gradient-to-br from-rose-50 to-purple-50 rounded-2xl p-6 shadow-lg border border-rose-100">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-rose-600 rounded-full p-3 mr-4">
+                                        <i class="fas fa-comments text-white"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-900">破除乳腺健康议题的社交禁忌</h3>
+                                </div>
+                                <ul class="space-y-2 text-gray-700 ml-16">
+                                    <li><i class="fas fa-circle text-rose-600 text-xs mr-2"></i>提升公众尤其是男性群体认知度</li>
+                                    <li><i class="fas fa-circle text-purple-600 text-xs mr-2"></i>让"主动筛查"成为社会常态</li>
+                                    <li><i class="fas fa-circle text-pink-600 text-xs mr-2"></i>让"坦然交流"成为社会常态</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-rose-600 rounded-full border-4 border-white shadow-lg hidden md:block"></div>
+                        <div class="w-full md:w-1/2 md:pl-12"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 效果验证 -->
+            <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 border border-purple-200">
+                <h3 class="text-2xl font-bold mb-6 text-center text-gray-900">
+                    <i class="fas fa-check-double text-green-600 mr-3"></i>线上互助有效性验证
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                        <div class="text-4xl font-bold text-purple-600 mb-2">2.7倍</div>
+                        <div class="text-gray-600">微博经验分享帖平均点赞量</div>
+                        <div class="text-sm text-gray-500 mt-2">vs 焦虑倾诉帖</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                        <div class="text-4xl font-bold text-pink-600 mb-2">高收藏</div>
+                        <div class="text-gray-600">小红书"已试有效"实操建议</div>
+                        <div class="text-sm text-gray-500 mt-2">优质内容触达率高</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                        <div class="text-4xl font-bold text-rose-600 mb-2">63.2%</div>
+                        <div class="text-gray-600">收到双重回应</div>
+                        <div class="text-sm text-gray-500 mt-2">情感鼓励+信息支持</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 结语 -->
+    <section class="py-20 bg-gradient-to-br from-purple-600 via-pink-600 to-rose-600 text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="fade-in-up">
+                <i class="fas fa-heart text-5xl mb-6 opacity-80"></i>
+                <h2 class="serif text-4xl md:text-5xl font-bold mb-6">
+                    从"谈癌色变"到互助发声
+                </h2>
+                <p class="text-xl md:text-2xl leading-relaxed mb-8 opacity-90">
+                    女性群体正在用自己的方式消解乳腺健康焦虑。<br>
+                    这条从情绪倾诉到抱团取暖的道路上，<br>
+                    线上社群的微光，正汇聚成照亮健康科普之路的火炬。
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 text-sm md:text-base">
+                    <span class="px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full">
+                        <i class="fas fa-shield-alt mr-2"></i>早了解
+                    </span>
+                    <span class="px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full">
+                        <i class="fas fa-search mr-2"></i>早发现
+                    </span>
+                    <span class="px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full">
+                        <i class="fas fa-stethoscope mr-2"></i>早诊断
+                    </span>
+                    <span class="px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full">
+                        <i class="fas fa-heartbeat mr-2"></i>早治疗
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 数据来源 -->
+    <section class="py-16 bg-gray-100">
+        <div class="max-w-4xl mx-auto px-6">
+            <h3 class="text-2xl font-bold mb-6 text-gray-900 text-center">
+                <i class="fas fa-database text-gray-700 mr-3"></i>数据来源
+            </h3>
+            <div class="bg-white rounded-lg p-8 shadow-md space-y-6">
+                <div>
+                    <h4 class="text-lg font-semibold mb-3 text-gray-800">
+                        <i class="fas fa-file-alt text-blue-600 mr-2"></i>一手数据来源
+                    </h4>
+                    <p class="text-gray-700 leading-relaxed text-sm">
+                        选取小红书、微博女性乳腺健康超话、豆瓣乳腺健康小组三个典型社群（用户基数大、乳腺健康话题活跃度高），选取含"乳腺""情绪""互助"等相关关键词的帖子（包括正文、评论），通过数据采集工具，通过爬取筛选得到有效样本。数据均来自公开可见内容。
+                    </p>
+                </div>
+                <div class="border-t border-gray-200 pt-6">
+                    <h4 class="text-lg font-semibold mb-3 text-gray-800">
+                        <i class="fas fa-book text-green-600 mr-2"></i>二手数据来源
+                    </h4>
+                    <ul class="text-gray-700 leading-relaxed text-sm space-y-2">
+                        <li>• 《2025版中国女性健康粉红报告》</li>
+                        <li>• 《中国乳腺癌认知与行为调查报告》</li>
+                        <li>• 谷雨数据《实时搜"乳腺增生"，我们发现了四万个女孩的悲伤》</li>
+                        <li>• 国家癌症中心</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="mb-4">
+                <i class="fas fa-heart text-pink-500 mr-2"></i>
+                女性乳腺议题的情绪表达与社群支持网络研究
+            </p>
+            <p class="text-sm">
+                基于微博、小红书、豆瓣三大平台的量化分析 | 数据驱动健康科普
+            </p>
+        </div>
+    </footer>
+    
+    <!-- 平滑滚动脚本 -->
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.card-hover, section > div').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
+
